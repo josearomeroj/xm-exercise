@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "validate.proto";
+
+option go_package = "./company_api";
+
+enum CompanyType {
+  _ = 0; // invalid value
+  Corporations = 10;
+  NonProfit = 20;
+  Cooperative = 30;
+  Sole_Proprietorship = 40;
+}
+
+message CreateCompanyRequest {
+  string name = 2 [(validate.rules).string = {pattern: "^[\\w,\\s-]{4,15}"}];
+  string description = 3 [(validate.rules).string.max_len = 3000];
+  int32 employees_num = 4 [(validate.rules).int32.gt = 0];
+  bool registered = 5 [(validate.rules).bool.const = true];
+  CompanyType type = 6 [(validate.rules).enum = {not_in: [0], defined_only: true}];
+}
+
+message UpdateCompanyRequest {
+  string id = 1 [(validate.rules).string.uuid = true];
+
+  optional string name = 2 [(validate.rules).string = {pattern: "^[\\w,\\s-]{4,15}"}];
+  optional string description = 3 [(validate.rules).string.max_len = 3000];
+  optional int32 employees_num = 4 [(validate.rules).int32.gt = 0];
+  optional bool registered = 5;
+  optional CompanyType type = 6 [(validate.rules).enum = {not_in: [0], defined_only: true}];
+}
+
+message RemoveCompanyRequest {
+  string id = 1 [(validate.rules).string.uuid = true];}
+
+message GetCompanyRequest {
+  string id = 1 [(validate.rules).string.uuid = true];
+}
+
+message Company {
+  string id = 1;
+  string name = 2;
+  optional string description = 3;
+  int32 employees_num = 4;
+  bool registered = 5;
+  CompanyType type = 6;
+}
+
+message LoginRequest {
+  string username = 1 [(validate.rules).string.min_len = 8];
+  string password = 2 [(validate.rules).string.min_len = 8];
+}
+
+message LoginResponse {
+  string id = 1;
+  string auth_token = 2;
+}
+
+service UserService {
+  rpc Login (LoginRequest) returns (LoginResponse) {}
+}
+
+service CompanyService {
+  rpc GetCompany (GetCompanyRequest) returns (Company) {}
+  rpc UpdateCompany (UpdateCompanyRequest) returns (google.protobuf.Empty) {}
+  rpc CreateCompany (CreateCompanyRequest) returns (Company) {}
+  rpc RemoveCompany (RemoveCompanyRequest) returns (google.protobuf.Empty) {}
+}
+

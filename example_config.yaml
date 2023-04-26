@@ -1,0 +1,40 @@
+# Application configuration
+PORT: 8080                        # port on which the application will listen for requests
+
+# MongoDB configuration
+DB_CONFIG:
+  URL: "mongodb://user:pass@localhost:27017/"  # MongoDB URL with the database name
+  DBNAME: "xm-exercise"                        # name of the MongoDB database
+
+# RSA private key and JWT validity configuration for authentication
+AUTH_CONFIG:
+  # RSA private key for authentication
+  PRIVATE_KEY: |-
+    -----BEGIN RSA PRIVATE KEY-----
+    MIICXgIBAAKBgQC65u/byGnw/2s6I2n4A6kIK9thRUQyroH+hMfIuUIoA7DmvFm/
+    CUYRXHFxQRQvZZWAx7Sh+enL8mHjG7PYjUWF9KnwMYXh4RmmzFgx+TJ6RXIkGTbm
+    UN0dGbCUasinBIwJCfWXQUQb+3LGhdzwi4q/VH+E3sEhCLsgaIMBkLiFmwIDAQAB
+    AoGBAJPHxAHo/nNy0erfU4uqAT4Xx1eq+BiGyPxhKsK4UOnouThH10Jo58EUchJV
+    ncs4LDTuMxIb09PRq7pyDgr88Ol107GDDMp1AnjtdneZz3rzT4bCn4zN/GSOjobE
+    v/XErTM0k07RpRGgNfcGVSA84jOA5RYeIA5aMR0OZL4ZzMjZAkEA70ViB7DxDoRk
+    yJ9g5l5foqVVsBmzqV+S88VVkLlzY6UIH7hLuVvYSZZDjF/OSmyGIHZXEVeujZLG
+    LECwVQomZwJBAMf4OS1aS8JZgrFiqbfMdSrfXxm/Pdxwcz7JsIfyzWvHnlzTl0zS
+    eftngAYUsE1O+N7c1cA4c7/f4KDI403vnq0CQQC9ZUpnlCP7vciZFa96KpHBCOZ+
+    8plIJKMJ2tYULPetlGCN2y/1lUHrXcoyP1PnjWfOIl5hF+rPnbLILJxndBVZAkAF
+    jzMXvbDpgE+P2uxY/cgsHvWn45c2r7GkhzrvLKLlYjFW51MHgbp+cMwwXxbfr1hf
+    6cfPhkJBjVnTXoJjQkwpAkEAkRADockYF9mQ9C1mdLEIFUhFVTX/P0S2OL+09JtO
+    4rZMjwTA+XozomePpBHc0GreKNenvlXVmYyWI50JxDvhPA==
+    -----END RSA PRIVATE KEY-----
+  PUBLIC_KEY: |-
+    -----BEGIN PUBLIC KEY-----
+    MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC65u/byGnw/2s6I2n4A6kIK9th
+    RUQyroH+hMfIuUIoA7DmvFm/CUYRXHFxQRQvZZWAx7Sh+enL8mHjG7PYjUWF9Knw
+    MYXh4RmmzFgx+TJ6RXIkGTbmUN0dGbCUasinBIwJCfWXQUQb+3LGhdzwi4q/VH+E
+    3sEhCLsgaIMBkLiFmwIDAQAB
+    -----END PUBLIC KEY-----
+  JWT_VALIDITY_MILLIS: 600000                   # JWT token validity time in milliseconds
+
+# Kafka configuration
+KAFKA_CONFIG:
+  KAFKA_URL: "localhost:9094"       # Kafka URL
+  KAFKA_EVENT_TOPIC: "company-events"             # name of the Kafka topic
